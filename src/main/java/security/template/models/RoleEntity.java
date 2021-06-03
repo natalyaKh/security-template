@@ -24,4 +24,7 @@ public class RoleEntity extends BaseEntity{
         inverseJoinColumns=@JoinColumn(name="authorities_id",referencedColumnName="id"))
     private Collection<AuthorityEntity> authorities;
 
+    public RoleEntity(String name) {
+        this.name = name;
+    }
 }
