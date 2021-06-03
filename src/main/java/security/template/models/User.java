@@ -2,12 +2,11 @@ package security.template.models;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
-@Table
+@Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -33,4 +32,10 @@ public class User extends BaseEntity{
      */
     @Column(nullable = false)
     private Boolean confirmEmail = true;
+
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn
+        (name = "users_id", referencedColumnName = "id"))
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Collection<RoleEntity> roles;
+
 }
