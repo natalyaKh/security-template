@@ -29,6 +29,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     public AuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
+
 //    будет срабатываться каждый раз, когда будет происходить логин
 //    Метод получает того пользователя, который был отправлен в реквесте (модель пользователя - LoginRequestModel)
 //    После того, как метод получает пользователя, он вызывает метод loadUserByUsername
