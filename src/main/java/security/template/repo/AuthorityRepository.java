@@ -5,4 +5,5 @@ import security.template.models.AuthorityEntity;
 import security.template.models.RoleEntity;
 
 public interface AuthorityRepository extends JpaRepository<AuthorityEntity, Long> {
+    AuthorityEntity findByName(String name);
 }

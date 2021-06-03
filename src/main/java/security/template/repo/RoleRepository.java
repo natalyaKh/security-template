@@ -5,4 +5,5 @@ import security.template.models.RoleEntity;
 import security.template.models.User;
 
 public interface RoleRepository extends JpaRepository<RoleEntity, Long> {
+    RoleEntity findByName(String name);
 }
