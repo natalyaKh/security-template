@@ -23,6 +23,8 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 //    Каждый раз, когда происходит запрос к любой конечной точке –
 //    вызывается этот фильтр. В нем есть доступ
 //    к headers, то есть мы можем достать токен и проверить его.
+
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain chain) throws IOException, ServletException {
