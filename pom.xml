@@ -11,10 +11,10 @@
     <groupId>security</groupId>
     <artifactId>template</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
+    <name>security-template</name>
     <description>template for security using SpringSecurity with all description</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>1.8</java.version>
     </properties>
     <dependencies>
         <dependency>
