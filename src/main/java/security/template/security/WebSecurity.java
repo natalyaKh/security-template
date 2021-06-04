@@ -11,6 +11,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import security.template.constants.SecurityConstants;
+import security.template.repo.UserRepository;
 import security.template.service.UserService;
 
 import java.util.Arrays;
@@ -19,10 +20,12 @@ import java.util.Arrays;
 public class WebSecurity extends WebSecurityConfigurerAdapter {
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserRepository userRepository;
 
-    public WebSecurity(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public WebSecurity(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository userRepository) {
         this.userService = userService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -46,7 +49,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
             /**
              * only authonticated user can do something in app
              */
-            .addFilter(new AuthorizationFilter(authenticationManager()));
+            .addFilter(new AuthorizationFilter(authenticationManager(), userRepository));
         /**
          * clean headers after all request
          */
@@ -61,7 +64,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
      * login user now by link .../users/login
      */
     protected AuthenticationFilter getAuthenticationFilter() throws Exception {
-        final AuthenticationFilter filter = new AuthenticationFilter(authenticationManager());
+        final AuthenticationFilter filter = new AuthenticationFilter(authenticationManager(), userRepository);
         filter.setFilterProcessesUrl("/users/login");
         return filter;
     }

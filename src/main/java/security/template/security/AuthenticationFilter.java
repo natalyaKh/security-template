@@ -10,11 +10,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import security.template.config.SpringApplicationContext;
 import security.template.constants.SecurityConstants;
 import security.template.dto.LoginRequestDto;
-import security.template.dto.UserDto;
-import security.template.service.UserService;
+import security.template.repo.UserRepository;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
@@ -25,9 +23,11 @@ import java.util.Date;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
+    private final UserRepository userRepository;
 
-    public AuthenticationFilter(AuthenticationManager authenticationManager) {
+    public AuthenticationFilter(AuthenticationManager authenticationManager, UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
     }
 
 //    будет срабатываться каждый раз, когда будет происходить логин
@@ -60,7 +60,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                             HttpServletResponse response,
                                             FilterChain chain,
                                             Authentication authResult) {
-        String userName = ((User) authResult.getPrincipal()).getUsername();
+        String userName = ((UserPrincipal) authResult.getPrincipal()).getUsername();
 
         String token =
             Jwts.builder()
