@@ -8,21 +8,26 @@ import security.template.enums.Authorities;
 import security.template.enums.Roles;
 import security.template.models.AuthorityEntity;
 import security.template.models.RoleEntity;
+import security.template.models.User;
 import security.template.repo.AuthorityRepository;
 import security.template.repo.RoleRepository;
+import security.template.repo.UserRepository;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.UUID;
 
 @Component
 public class InitialUsersSetup {
 
     final AuthorityRepository authorityRepository;
     final RoleRepository roleRepository;
+    final UserRepository userRepository;
 
-    public InitialUsersSetup(AuthorityRepository authorityRepository, RoleRepository roleRepository) {
+    public InitialUsersSetup(AuthorityRepository authorityRepository, RoleRepository roleRepository, UserRepository userRepository) {
         this.authorityRepository = authorityRepository;
         this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
     }
 
     @EventListener
@@ -52,6 +57,20 @@ public class InitialUsersSetup {
  */
         RoleEntity superAdmin = createRole(Roles.SUPER_ADMIN.name(), Arrays.asList(readAuthority,
             writeAuthority, deleteAuthority));
+/**
+ * create superAdministrator
+ */
+        if (superAdmin == null) return;
+        User superAdministrator = User.builder()
+            .uuidUser(UUID.randomUUID().toString())
+            .firstName("super")
+            .secondName("admin")
+            .password("1111")
+            .userEmail("1111@mail.com")
+            .confirmEmail(true)
+            .roles(Arrays.asList(superAdmin))
+            .build();
+        userRepository.save(superAdministrator);
     }
 
 
@@ -63,6 +82,7 @@ public class InitialUsersSetup {
             roleRepository.save(roleEntity);
         }
         return roleEntity;
+
     }
 
     private AuthorityEntity createAuthority(String name) {
