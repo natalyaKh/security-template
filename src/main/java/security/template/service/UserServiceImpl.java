@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     public UserDto createUser(UserDto userDto) {
         AuthorityEntity readAuthority = initialUsersSetup.createAuthority(Authorities.READ.name());
         AuthorityEntity writeAuthority = initialUsersSetup.createAuthority(Authorities.WRITE.name());
-        AuthorityEntity deleteAuthority = initialUsersSetup.createAuthority(Authorities.DELETE.name());
+//        AuthorityEntity deleteAuthority = initialUsersSetup.createAuthority(Authorities.DELETE.name());
         User restoreUser = userRepository.findByUserEmail(userDto.getUserEmail());
         if (restoreUser != null) {
 //            TODO тут будет exception
@@ -51,10 +51,10 @@ public class UserServiceImpl implements UserService {
         String defaultCode = SecurityConstants.getAdminCode();
         if (userDto.getCode()!= "" & userDto.getCode().equals(defaultCode)) {
             RoleEntity adminRole = initialUsersSetup.createRole(Roles.ROLE_ADMIN.name(), Arrays.asList(readAuthority,
-                writeAuthority, deleteAuthority));
+                writeAuthority));
             user.setRoles(Arrays.asList(adminRole));
         } else {
-            RoleEntity userRole = initialUsersSetup.createRole(Roles.ROLE_USER.name(), Arrays.asList(readAuthority,
+            RoleEntity userRole = initialUsersSetup.createRole(Roles.ROLE_USER.name(), Arrays.asList(
                 writeAuthority));
             user.setRoles(Arrays.asList(userRole));
         }

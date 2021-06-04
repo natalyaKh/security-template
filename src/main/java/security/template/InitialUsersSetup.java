@@ -48,13 +48,13 @@ public class InitialUsersSetup {
 /**
  * user can write his profile and read his information
  */
-        RoleEntity userRole = createRole(Roles.ROLE_USER.name(), Arrays.asList(readAuthority,
+        RoleEntity userRole = createRole(Roles.ROLE_USER.name(), Arrays.asList(
             writeAuthority));
 /**
  * admin can write his profile and read all information and delete all profiles (not admin profile)
  */
         RoleEntity adminRole = createRole(Roles.ROLE_ADMIN.name(), Arrays.asList(readAuthority,
-            writeAuthority, deleteAuthority));
+            writeAuthority));
 /**
  * super admin can do everything
  */
