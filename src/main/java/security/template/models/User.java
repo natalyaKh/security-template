@@ -12,7 +12,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @Builder
-@ToString
+
 public class User extends BaseEntity{
     @Column(nullable = false)
     private String uuidUser;
@@ -30,6 +30,8 @@ public class User extends BaseEntity{
     /** noe all users has confirmed email. We dont need this functionality
      * in this project
      */
+    @Column(nullable = false)
+    Boolean deleted;
     @Column(nullable = false)
     private Boolean confirmEmail = true;
 
