@@ -6,18 +6,21 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import security.template.constants.SecurityConstants;
+import security.template.models.User;
+import security.template.repo.UserRepository;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class AuthorizationFilter extends BasicAuthenticationFilter {
 
-    public AuthorizationFilter(AuthenticationManager authenticationManager) {
+    final UserRepository userRepository;
+    public AuthorizationFilter(AuthenticationManager authenticationManager, UserRepository userRepository) {
         super(authenticationManager);
+        this.userRepository = userRepository;
     }
 
 //    Каждый раз, когда происходит запрос к любой конечной точке –
@@ -50,8 +53,10 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
                 .getBody()
                 .getSubject();
             if (user != null) {
+                User userEntity = userRepository.findByUserEmail(user);
+                UserPrincipal userPrincipal = new UserPrincipal(userEntity);
                 return new UsernamePasswordAuthenticationToken(user,
-                    null, new ArrayList<>());
+                    null, userPrincipal.getAuthorities());
             }
             return null;
         }

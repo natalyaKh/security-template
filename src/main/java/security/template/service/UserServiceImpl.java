@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import security.template.dto.UserDto;
 import security.template.models.User;
 import security.template.repo.UserRepository;
+import security.template.security.UserPrincipal;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
@@ -41,16 +43,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserPrincipal loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByUserEmail(email);
         if (user == null) {
 //            TODO тут будет exception
         }
-        return
-                new org.springframework.security.core.userdetails.User(user.getUserEmail(),
-                    user.getPassword(), true,
-                    true, true,
-                    true, new ArrayList<>());
+        return new UserPrincipal(user);
+//                new org.springframework.security.core.userdetails.User(user.getUserEmail(),
+//                    user.getPassword(), true,
+//                    true, true,
+//                    true, new ArrayList<>());
 
     }
 
