@@ -29,9 +29,8 @@ public class UserPrincipal implements UserDetails {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
             authorityEntities.addAll(role.getAuthorities());
         });
-        authorityEntities.forEach(authorityEntity -> {
-          authorities.add(new SimpleGrantedAuthority(authorityEntity.getName()));
-        });
+        authorityEntities.forEach(authorityEntity -> authorities.add(
+            new SimpleGrantedAuthority(authorityEntity.getName())));
         return authorities;
     }
 

@@ -1,11 +1,9 @@
 package security.template.models;
 
 import lombok.*;
-import security.template.enums.Roles;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Table(name = "users")

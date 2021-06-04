@@ -2,8 +2,6 @@ package security.template.dto;
 
 import lombok.*;
 
-import javax.persistence.Column;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

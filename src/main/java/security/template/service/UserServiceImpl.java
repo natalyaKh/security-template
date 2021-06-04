@@ -27,8 +27,8 @@ public class UserServiceImpl implements UserService {
 
     final UserRepository userRepository;
     final BCryptPasswordEncoder bCryptPasswordEncoder;
-    InitialUsersSetup initialUsersSetup;
-    ModelMapper modelMapper = new ModelMapper();
+    final InitialUsersSetup initialUsersSetup;
+    final ModelMapper modelMapper = new ModelMapper();
 
     public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, InitialUsersSetup initialUsersSetup) {
         this.userRepository = userRepository;
@@ -75,8 +75,7 @@ public class UserServiceImpl implements UserService {
     public List<UserDto> getAllUsers() {
         List<User> userList = userRepository.findAll();
         if (userList.size() == 0) return new ArrayList<>();
-        List<UserDto> userDtoList = userList.stream().map(this::getDtoFromUser).collect(Collectors.toList());
-        return userDtoList;
+        return userList.stream().map(this::getDtoFromUser).collect(Collectors.toList());
     }
 
     @Override
@@ -104,11 +103,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Boolean deleteUserByUserUuid(String userEmail) {
         Integer rez = userRepository.deleteUserByUserEmail(userEmail);
-//        if (user == null) {
-//           return false;
-//        }
-//        userRepository.delete(user);
-        return rez == 1 ? true : false;
+        return rez == 1;
     }
 
     @Override
@@ -118,11 +113,6 @@ public class UserServiceImpl implements UserService {
 //            TODO тут будет exception
         }
         return new UserPrincipal(user);
-//                new org.springframework.security.core.userdetails.User(user.getUserEmail(),
-//                    user.getPassword(), true,
-//                    true, true,
-//                    true, new ArrayList<>());
-
     }
 
 }

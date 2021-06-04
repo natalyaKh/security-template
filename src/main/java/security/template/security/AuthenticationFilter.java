@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import security.template.constants.SecurityConstants;
 import security.template.dto.LoginRequestDto;
@@ -31,7 +30,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     }
 
 //    будет срабатываться каждый раз, когда будет происходить логин
-//    Метод получает того пользователя, который был отправлен в реквесте (модель пользователя - LoginRequestModel)
+//    Метод получает того пользователя, который был отправлен в request (модель пользователя - LoginRequestModel)
 //    После того, как метод получает пользователя, он вызывает метод loadUserByUsername
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
@@ -52,7 +51,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     //    срабатывает после метода loadUserByUsername (из UserService)
-//    сравнивает обоих пользователей – того, которого получили из базы данных и того, которого получили из реквесте.
+//    сравнивает обоих пользователей – того, которого получили из базы данных и того, которого получили из request.
 //    Если все ОК и пользователи совпадают – вызывается метод, который создает токен для конкретного пользователя
 //        (то есть аутентификация пройдена, возвращаем токен)
     @Override

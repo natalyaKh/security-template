@@ -49,7 +49,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
             .and()
             .addFilter(getAuthenticationFilter())
             /**
-             * only authonticated user can do something in app
+             * only authenticated user can do something in app
              */
             .addFilter(new AuthorizationFilter(authenticationManager(), userRepository));
         /**
