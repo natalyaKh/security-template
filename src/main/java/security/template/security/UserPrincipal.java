@@ -12,9 +12,11 @@ import java.util.Collection;
 import java.util.List;
 
 public class UserPrincipal implements UserDetails {
-    User user;
+    private User user;
+    private String id;
     public UserPrincipal(User user) {
         this.user = user;
+        this.id = user.getUserEmail();
     }
 
     @Override
@@ -40,7 +42,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.user.getFirstName() + this.user.getSecondName();
+        return this.user.getUserEmail();
     }
 
     @Override
@@ -64,5 +66,12 @@ public class UserPrincipal implements UserDetails {
     }
 
     public UserPrincipal() {
+    }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
