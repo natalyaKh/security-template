@@ -2,6 +2,7 @@ package security.template;
 
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import security.template.enums.Authorities;
@@ -23,11 +24,13 @@ public class InitialUsersSetup {
     final AuthorityRepository authorityRepository;
     final RoleRepository roleRepository;
     final UserRepository userRepository;
+    final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public InitialUsersSetup(AuthorityRepository authorityRepository, RoleRepository roleRepository, UserRepository userRepository) {
+    public InitialUsersSetup(AuthorityRepository authorityRepository, RoleRepository roleRepository, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.authorityRepository = authorityRepository;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @EventListener
@@ -65,7 +68,7 @@ public class InitialUsersSetup {
             .uuidUser(UUID.randomUUID().toString())
             .firstName("super")
             .secondName("admin")
-            .password("1111")
+            .password(bCryptPasswordEncoder.encode("1111"))
             .userEmail("1111@mail.com")
             .confirmEmail(true)
             .roles(Arrays.asList(superAdmin))
