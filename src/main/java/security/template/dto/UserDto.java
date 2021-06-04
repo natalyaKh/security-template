@@ -16,4 +16,5 @@ public class UserDto {
     private String userEmail;
     private String password;
     private String code = null;
+    private Boolean deleted = false;
 }

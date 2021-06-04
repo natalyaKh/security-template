@@ -45,7 +45,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return !this.user.getDeleted();
     }
 
     @Override

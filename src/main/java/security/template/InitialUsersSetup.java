@@ -72,6 +72,7 @@ public class InitialUsersSetup {
             .userEmail("1111@mail.com")
             .confirmEmail(true)
             .roles(Arrays.asList(superAdmin))
+            .deleted(false)
             .build();
         userRepository.save(superAdministrator);
     }
