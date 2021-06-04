@@ -14,6 +14,7 @@ public class AppProperties {
         return env.getProperty("tokenSecret");
     }
 
-    public String getAdminCode() {return env.getProperty("admin.code");
-    }
+    public String getAdminCode() {return env.getProperty("admin.code");}
+
+    public String getPort() {return env.getProperty("server.port");}
 }

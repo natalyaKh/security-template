@@ -22,4 +22,8 @@ public class SecurityConstants {
         AppProperties appProperties = (AppProperties) SpringApplicationContext.getBean("AppProperties");
         return appProperties.getAdminCode();
     }
+    public static String getPort(){
+        AppProperties appProperties = (AppProperties) SpringApplicationContext.getBean("AppProperties");
+        return appProperties.getPort();
+    }
 }
