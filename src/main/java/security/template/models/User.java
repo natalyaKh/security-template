@@ -1,9 +1,11 @@
 package security.template.models;
 
 import lombok.*;
+import security.template.enums.Roles;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -39,5 +41,4 @@ public class User extends BaseEntity{
         (name = "users_id", referencedColumnName = "id"))
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Collection<RoleEntity> roles;
-
 }

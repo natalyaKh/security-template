@@ -1,5 +1,5 @@
 package security.template.enums;
 
 public enum Roles {
-USER, ADMIN, SUPER_ADMIN
+ROLE_USER, ROLE_ADMIN, ROLE_SUPER_ADMIN
 }

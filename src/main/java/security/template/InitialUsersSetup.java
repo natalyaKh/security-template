@@ -48,17 +48,17 @@ public class InitialUsersSetup {
 /**
  * user can write his profile and read his information
  */
-        RoleEntity userRole = createRole(Roles.USER.name(), Arrays.asList(readAuthority,
+        RoleEntity userRole = createRole(Roles.ROLE_USER.name(), Arrays.asList(readAuthority,
             writeAuthority));
 /**
  * admin can write his profile and read all information and delete all profiles (not admin profile)
  */
-        RoleEntity adminRole = createRole(Roles.ADMIN.name(), Arrays.asList(readAuthority,
+        RoleEntity adminRole = createRole(Roles.ROLE_ADMIN.name(), Arrays.asList(readAuthority,
             writeAuthority, deleteAuthority));
 /**
  * super admin can do everything
  */
-        RoleEntity superAdmin = createRole(Roles.SUPER_ADMIN.name(), Arrays.asList(readAuthority,
+        RoleEntity superAdmin = createRole(Roles.ROLE_SUPER_ADMIN.name(), Arrays.asList(readAuthority,
             writeAuthority, deleteAuthority));
 /**
  * create superAdministrator
@@ -78,7 +78,7 @@ public class InitialUsersSetup {
     }
 
 
-    private RoleEntity createRole(String name, Collection<AuthorityEntity> authorityEntities) {
+    public RoleEntity createRole(String name, Collection<AuthorityEntity> authorityEntities) {
         RoleEntity roleEntity = roleRepository.findByName(name);
         if (roleEntity == null) {
             roleEntity = new RoleEntity(name);
@@ -89,7 +89,7 @@ public class InitialUsersSetup {
 
     }
 
-    private AuthorityEntity createAuthority(String name) {
+    public AuthorityEntity createAuthority(String name) {
         AuthorityEntity authorityEntity = authorityRepository.findByName(name);
         if (authorityEntity == null) {
             authorityEntity = new AuthorityEntity(name);
